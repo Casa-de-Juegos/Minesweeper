@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 node_modules
 
 package-lock.json
 bundle.js
+=======
+node_modules
+>>>>>>> 67f2ecab3e923e9c5bd6f44f6281f4e37df965d7
