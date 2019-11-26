@@ -1,0 +1,29 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Casa-de-Juegos/Minesweeper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Casa-de-Juegos/Minesweeper/issues"
+  },
+  "homepage": "https://github.com/Casa-de-Juegos/Minesweeper#readme",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node": "^13.1.0",
+    "nodemon": "^2.0.1"
+  }
+}
