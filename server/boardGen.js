@@ -44,8 +44,8 @@ const generateCell = (r, c, bombLevel) => {
     R: r,
     C: c,
     bomb: bombCheck,
-    flag: 'false',
-    edge: 'false',
+    flag: false,
+    edge: false,
     bombsNearby: 0
   };
 
