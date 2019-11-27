@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Cell from './components/Cell.jsx'
+import Cell from './components/Cell.jsx';
+import EndPrompt from './components/EndPrompt.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,21 +13,21 @@ class App extends React.Component {
       table: [],
       gameOver: false
     }
+    this.endGame = this.endGame.bind(this);
   }
 
   componentDidMount() {
     this.getTable();
   }
 
-  endGame() {
+  endGame(repeat) {
     this.setState({
       gameOver: true
     })
-    this.resetTable()
-  }
-
-  resetTable() {
-
+    if(repeat) {
+      // this.getTable()
+      window.location.reload(true);
+    }
   }
 
   getTable() {
@@ -43,15 +44,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="table" className="container">
+      <div className="table" className="container" >
         <h1>Minesweeper</h1>
-        <table>
+        <table><tbody>
         {this.state.table.map((row) => {
           return <tr>{row.map((cell) => {
-           return <td><Cell cell={cell} /></td>
+           return <td><Cell cell={cell} gameOver={this.state.gameOver} endGame={this.endGame}/></td>
           })
         }</tr>})}
-        </table>
+        </tbody></table>
+        <EndPrompt gameOver={this.state.gameOver} endGame={this.endGame}/>
       </div>
     )
   }
