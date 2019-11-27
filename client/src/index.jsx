@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Cell from './components/Cell.jsx'
+import Cell from './components/Cell.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,34 +11,36 @@ class App extends React.Component {
     this.state = {
       table: [],
       gameOver: false
-    }
+    };
+    this.checkArea = this.checkArea.bind(this);
   }
 
   componentDidMount() {
     this.getTable();
   }
 
+  checkArea({ row, column }) {}
+
   endGame() {
     this.setState({
       gameOver: true
-    })
-    this.resetTable()
+    });
+    this.resetTable();
   }
 
-  resetTable() {
-
-  }
+  resetTable() {}
 
   getTable() {
-    axios.get('/board')
-    .then(({data}) => {
-      this.setState({
-        table: data
+    axios
+      .get('/board')
+      .then(({ data }) => {
+        this.setState({
+          table: data
+        });
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    })
-    .catch((error) => {
-      console.error(error);
-    })
   }
 
   render() {
@@ -46,14 +48,22 @@ class App extends React.Component {
       <div className="table" className="container">
         <h1>Minesweeper</h1>
         <table>
-        {this.state.table.map((row) => {
-          return <tr>{row.map((cell) => {
-           return <td><Cell cell={cell} /></td>
-          })
-        }</tr>})}
+          {this.state.table.map((row) => {
+            return (
+              <tr>
+                {row.map((cell) => {
+                  return (
+                    <td>
+                      <Cell cell={cell} checkArea={this.checkArea.bind(this)} />
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </table>
       </div>
-    )
+    );
   }
 }
 
