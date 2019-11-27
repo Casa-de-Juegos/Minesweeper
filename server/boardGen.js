@@ -35,7 +35,6 @@ const generateBoard = (options) => {
   return board;
 };
 
-
 const generateCell = (r, c, bombLevel) => {
   let bombCheck = false;
 
@@ -57,11 +56,11 @@ const generateCell = (r, c, bombLevel) => {
   return newCell;
 };
 
-const countBombs =(cell, board) => {
+const countBombs = (cell, board) => {
   if (cell.bomb === true) {
     return null;
   }
-  
+
   let row = cell.R;
   let column = cell.C;
   let bombs = 0;
@@ -70,14 +69,14 @@ const countBombs =(cell, board) => {
     for (let j = column - 1; j <= column + 1; j++) {
       if (board[i] !== undefined && board[j] !== undefined) {
         if (board[i][j].bomb) {
-          bombs += 1
+          bombs += 1;
         }
       }
     }
   }
 
   return bombs;
-}
+};
 
 const assignBombsNum = (board) => {
   for (let row of board) {
@@ -85,6 +84,25 @@ const assignBombsNum = (board) => {
       cell.bombsNearby = countBombs(cell, board);
     }
   }
-}
+};
+
+const generateOpenBoard = (options) => {
+  const num = 20;
+  let board = [];
+
+  for (let r = 0; r < num; r++) {
+    board.push([]);
+
+    for (let c = 0; c < num; c++) {
+      //   rows[r].push({ row: r, col: c });
+      board[r].push(false);
+    }
+  }
+
+  return board;
+};
+
+console.log(generateOpenBoard());
 
 module.exports.generateBoard = generateBoard;
+module.exports.generateOpenBoard = generateOpenBoard;
