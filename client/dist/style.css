@@ -5,13 +5,39 @@
 .container {
   display: grid;
   flex-direction: row;
+  padding: 10px;
   /* grid-template-columns: 40px 50px;
   grid-template-rows: 25% */
 }
 
 .item {
-  /* grid-column-start: 2;
-  grid-column-end: five;
-  grid-row-start: row1-start;
-  grid-row-end: 3; */
+  /* /* color: #e6e6fa;
+  background-color: #e6e6fa;
+  border-radius: 5px 5px 5px;
+  border: 1px solid black; */
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  glyph-orientation-horizontal: middle;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: middle;
+  background-color: darkgray;
+}
+
+table {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
 }

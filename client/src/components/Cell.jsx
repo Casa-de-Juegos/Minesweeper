@@ -11,22 +11,58 @@ class Cell extends React.Component {
       isBomb: cell.bomb,
       isFlag: cell.flag,
       isEdge: cell.edge,
+      isOpen: cell.isOpen,
       bombsNearby: cell.bombsNearby
-    }
+    };
   }
 
-  handleCellClick() {
-    if (this.state.isBomb) {
-      console.log('LOST');
+  toggleOpen() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  toggleFlag() {
+    this.setState({ isFlag: !isFlag });
+  }
+
+  cellGraphic() {
+    //return this.state.isBomb ? 'bomb' : 'clean';
+    let graphic = '';
+
+    if (this.state.isOpen === false) {
+      graphic = '[====]';
+    } else if (this.state.isBomb === true) {
+      graphic = 'bomb';
+    } else if (this.state.isFlag === true) {
+      graphic = 'flagged';
     } else {
-      console.log('Open fields')
+      graphic = 'safe';
+    }
+
+    return graphic;
+  }
+
+  handleCellClick(e) {
+    if (this.state.isBomb) {
+      console.log('test');
+      this.toggleOpen();
+    } else {
+      // console.log('Open fields');
+      // console.log(e);
+      this.toggleOpen();
+      this.props.checkArea({ row: this.state.row, column: this.state.column });
     }
   }
 
   render() {
     return (
-      <span className="cell" className="item"  onClick={(e) => this.handleCellClick(e)}>{this.state.isBomb ? "bomb" : "clean" }</span>
-    )
+      <span
+        className="cell"
+        className="item"
+        onClick={(e) => this.handleCellClick(e)}
+      >
+        {this.cellGraphic()}
+      </span>
+    );
   }
 }
 
