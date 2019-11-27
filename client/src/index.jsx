@@ -14,10 +14,17 @@ class App extends React.Component {
       gameOver: false
     }
     this.endGame = this.endGame.bind(this);
+    this.changeAll = this.changeAll.bind(this);
   }
 
   componentDidMount() {
     this.getTable();
+  }
+
+  changeAll(cb, cb2) {
+    console.log('here')
+    cb()
+    cb2()
   }
 
   endGame(repeat) {
@@ -49,11 +56,11 @@ class App extends React.Component {
         <table><tbody>
         {this.state.table.map((row) => {
           return <tr>{row.map((cell) => {
-           return <td><Cell cell={cell} gameOver={this.state.gameOver} endGame={this.endGame}/></td>
+           return <td><Cell cell={cell} gameOver={this.state.gameOver} endGame={this.endGame} changeAll={this.changeAll}/></td>
           })
         }</tr>})}
         </tbody></table>
-        <EndPrompt gameOver={this.state.gameOver} endGame={this.endGame}/>
+        <EndPrompt gameOver={this.state.gameOver} endGame={this.endGame} />
       </div>
     )
   }

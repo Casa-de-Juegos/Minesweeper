@@ -14,6 +14,9 @@ class Cell extends React.Component {
       isOpen: cell.open,
       bombsNearby: cell.bombsNearby
     }
+
+    this.openCell = this.openCell.bind(this);
+    this.setNumColor = this.setNumColor.bind(this);
   }
 
   setNumColor() {
@@ -34,6 +37,12 @@ class Cell extends React.Component {
     }
   }
 
+  openCell() {
+    this.setState({
+      isOpen: true
+    })
+  }
+
   setBackground() {
     if (this.state.isBomb) {
       return 'red';
@@ -50,7 +59,8 @@ class Cell extends React.Component {
       this.setNumColor();
       this.setBackground();
       if (this.state.isBomb) {
-        this.props.endGame()
+        this.props.endGame();
+        this.props.changeAll(this.openCell, this.setNumColor)
         console.log('LOST');
       } else {
       // open
