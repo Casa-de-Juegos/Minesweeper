@@ -11,7 +11,7 @@ class Cell extends React.Component {
       isBomb: cell.bomb,
       isFlag: cell.flag,
       isEdge: cell.edge,
-      isOpen: cell.open,
+      isOpen: this.props.open,
       bombsNearby: cell.bombsNearby
     };
   }
@@ -40,6 +40,7 @@ class Cell extends React.Component {
 
     this.openCell = this.openCell.bind(this);
     this.setNumColor = this.setNumColor.bind(this);
+    this.setBackground = this.setBackground.bind(this)
   }
 
   setNumColor() {
@@ -67,6 +68,9 @@ class Cell extends React.Component {
   }
 
   setBackground() {
+    if (this.state.isOpen) {
+      return "lightgrey"
+    }
     if (this.state.isBomb) {
       return 'red';
     } else {
@@ -76,14 +80,15 @@ class Cell extends React.Component {
 
   handleCellClick(e) {
     if (this.props.gameOver === false) {
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
+      // this.setState({
+      //   isOpen: !this.state.isOpen
+      // });
+      this.props.changeStatusBoard(this.state.row, this.state.column, true)
       this.setNumColor();
       this.setBackground();
       if (this.state.isBomb) {
         this.props.endGame();
-        this.props.changeAll(this.openCell, this.setNumColor);
+        this.props.changeAll(this.openCell, this.setNumColor, this.setBackground);
         console.log('LOST');
       } else {
         // open
