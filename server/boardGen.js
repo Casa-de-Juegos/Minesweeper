@@ -18,20 +18,23 @@ Cell structure:
 
 const generateBoard = (options) => {
   const bombLevel = 0.7;
-  const num = 10;
-  let rows = [];
+  const num = 20;
+  let board = [];
 
   for (let r = 0; r < num; r++) {
-    rows.push([]);
+    board.push([]);
 
     for (let c = 0; c < num; c++) {
       //   rows[r].push({ row: r, col: c });
-      rows[r].push(generateCell(r, c, bombLevel));
+      board[r].push(generateCell(r, c, bombLevel));
     }
   }
 
-  return rows;
+  assignBombsNum(board);
+
+  return board;
 };
+
 
 const generateCell = (r, c, bombLevel) => {
   let bombCheck = false;
@@ -46,10 +49,41 @@ const generateCell = (r, c, bombLevel) => {
     bomb: bombCheck,
     flag: false,
     edge: false,
+    open: false,
     bombsNearby: 0
   };
 
   return newCell;
 };
+
+const countBombs =(cell, board) => {
+  if (cell.bomb === true) {
+    return null;
+  }
+  
+  let row = cell.R;
+  let column = cell.C;
+  let bombs = 0;
+
+  for (let i = row - 1; i <= row + 1; i++) {
+    for (let j = column - 1; j <= column + 1; j++) {
+      if (board[i] !== undefined && board[j] !== undefined) {
+        if (board[i][j].bomb) {
+          bombs += 1
+        }
+      }
+    }
+  }
+
+  return bombs;
+}
+
+const assignBombsNum = (board) => {
+  for (let row of board) {
+    for (let cell of row) {
+      cell.bombsNearby = countBombs(cell, board);
+    }
+  }
+}
 
 module.exports.generateBoard = generateBoard;
