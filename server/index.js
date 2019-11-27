@@ -17,6 +17,11 @@ app.get('/board', function(req, res) {
   res.status('200').send(board);
 });
 
+app.get('/openBoard', function(req, res) {
+  const openBoard = generateOpenBoard();
+  res.status('200').send(openBoard);
+});
+
 app.listen(PORT, () => {
   console.log(`listening on port ${4000}`);
 });
