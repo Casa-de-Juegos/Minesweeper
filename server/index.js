@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const { generateBoard } = require('../server/boardGen.js');
 
 const app = express();
 const PORT = 4000;
 
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../client/dist'));

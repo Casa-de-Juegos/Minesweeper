@@ -11,21 +11,74 @@ class Cell extends React.Component {
       isBomb: cell.bomb,
       isFlag: cell.flag,
       isEdge: cell.edge,
+      isOpen: cell.open,
       bombsNearby: cell.bombsNearby
+    }
+
+    this.openCell = this.openCell.bind(this);
+    this.setNumColor = this.setNumColor.bind(this);
+  }
+
+  setNumColor() {
+    if (this.state.isOpen) {
+      if (this.state.bombsNearby === null) {
+        return 'black';
+      } else if (this.state.bombsNearby === 0) {
+        return 'gold';
+      } else if (this.state.bombsNearby === 1) {
+        return 'royalblue';
+      } else if (this.state.bombsNearby === 2) {
+        return 'seagreen';
+      } else if (this.state.bombsNearby === 3) {
+        return 'orangered';
+      } else {
+        return 'darkred';
+      }
     }
   }
 
-  handleCellClick() {
+  openCell() {
+    this.setState({
+      isOpen: true
+    })
+  }
+
+  setBackground() {
     if (this.state.isBomb) {
-      console.log('LOST');
+      return 'red';
     } else {
-      console.log('Open fields')
+      return 'lightgrey'
+    }
+  }
+
+  handleCellClick(e) {
+    if (this.props.gameOver === false) {
+      this.setState({
+        isOpen: !this.state.isOpen
+      })
+      this.setNumColor();
+      this.setBackground();
+      if (this.state.isBomb) {
+        this.props.endGame();
+        this.props.changeAll(this.openCell, this.setNumColor)
+        console.log('LOST');
+      } else {
+      // open
+      // increase score
+      }
     }
   }
 
   render() {
     return (
-      <span className="cell" className="item"  onClick={(e) => this.handleCellClick(e)}>{this.state.isBomb ? "bomb" : "clean" }</span>
+      <div 
+        className="cell" 
+        onClick={(e) => this.handleCellClick(e)}
+        style={ this.state.isOpen ? { backgroundColor: this.setBackground(), color: this.setNumColor()} : {backgroundColor:'grey', color: 'grey', opacity: '100%'}}
+        // style={this.setStyle()}
+      >
+        {this.state.isBomb ? "X" : this.state.bombsNearby}
+      </div>
     )
   }
 }
