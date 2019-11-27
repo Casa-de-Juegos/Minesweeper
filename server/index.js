@@ -7,16 +7,12 @@ const PORT = 4000;
 
 app.use(bodyParser.json());
 
-//app.use(express.static(__dirname + ''));
+app.use(express.static(__dirname + '/../client/dist'));
 
 //routes
 app.get('/board', function(req, res) {
   const board = generateBoard();
   res.status('200').send(board);
-});
-
-app.get('/', function(req, res) {
-  res.status('200').send('Casa de Juegos: Minesweeper');
 });
 
 app.listen(PORT, () => {
