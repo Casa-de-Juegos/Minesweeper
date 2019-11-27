@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const { generateBoard } = require('../server/boardGen.js');
+const { generateBoard, generateOpenBoard } = require('../server/boardGen.js');
 
 const app = express();
 const PORT = 4000;

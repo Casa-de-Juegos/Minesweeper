@@ -15,22 +15,15 @@ class App extends React.Component {
       statusTable: [],
       gameOver: false
     };
-    this.checkArea = this.checkArea.bind(this);
+    
     this.endGame = this.endGame.bind(this);
-    this.changeAll = this.changeAll.bind(this);
     this.changeStatusBoard = this.changeStatusBoard.bind(this);
+    this.openCell = this.openCell.bind(this);
   }
 
   componentDidMount() {
     this.getTable();
     this.getStatusTable();
-  }
-
-  changeAll(cb, cb2, cb3) {
-    console.log('here');
-    cb();
-    cb2();
-    cb3()
   }
 
   changeStatusBoard(row, column, status) {
@@ -41,9 +34,46 @@ class App extends React.Component {
     })
   }
 
-  checkArea({ row, column }) {}
+  openCell (row, column) {
+    let table = this.state.table;
+    let statusTable = this.state.statusTable;
+
+    if (!table[row]|| !table[column] || statusTable[row][column] === true) {
+      return;
+    }
+    
+    if (table[row][column].bombsNearby !== 0) {
+      let newStatusTable = statusTable.slice();
+      newStatusTable[row][column] = true;
+      this.setState({
+        statusTable: newStatusTable
+      })
+    } else if (table[row][column].bombsNearby === 0) {
+      let newStatusTable = statusTable.slice();
+      newStatusTable[row][column] = true;
+      this.setState({
+        statusTable: newStatusTable
+      })
+
+      this.openCell(row - 1, column);
+      this.openCell(row + 1, column);
+      this.openCell(row, column - 1);
+      this.openCell(row, column + 1);
+    }
+
+    return
+  }
 
   endGame(repeat) {
+    let newTable = this.state.statusTable.slice();
+    newTable.forEach((row, i) => {
+      row.forEach((cell, j) => {
+        newTable[i][j] = true;
+      })
+    })
+    this.setState({
+      statusTable: newTable
+    })
     this.setState({
       gameOver: true
     });
@@ -67,8 +97,7 @@ class App extends React.Component {
   }
 
   getStatusTable() {
-    axios
-      .get('/openBoard')
+    axios.get('/openBoard')
       .then(({ data }) => {
         this.setState({
           statusTable: data
@@ -94,11 +123,11 @@ class App extends React.Component {
                         <Cell
                           cell={cell}
                           gameOver={this.state.gameOver}
-                          checkArea={this.checkArea.bind(this)}
                           endGame={this.endGame}
                           changeAll={this.changeAll}
                           changeStatusBoard={this.changeStatusBoard}
                           open={this.state.statusTable[i][j]}
+                          openCell={this.openCell}
                         />
                       </td>
                     );
