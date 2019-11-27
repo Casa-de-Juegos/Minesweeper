@@ -44,11 +44,11 @@ class Cell extends React.Component {
   }
 
   setNumColor() {
-    if (this.state.isOpen) {
+    if (this.props.open) {
       if (this.state.bombsNearby === null) {
         return 'black';
       } else if (this.state.bombsNearby === 0) {
-        return 'gold';
+        return 'lightgrey';
       } else if (this.state.bombsNearby === 1) {
         return 'royalblue';
       } else if (this.state.bombsNearby === 2) {
@@ -61,18 +61,16 @@ class Cell extends React.Component {
     }
   }
 
-  openCell() {
-    this.setState({
-      isOpen: true
-    });
-  }
+  // openCell() {
+  //   this.setState({
+  //     isOpen: true
+  //   });
+  // }
 
   setBackground() {
-    if (this.state.isOpen) {
-      return "lightgrey"
-    }
+  
     if (this.state.isBomb) {
-      return 'red';
+      return 'tomato';
     } else {
       return 'lightgrey';
     }
@@ -80,17 +78,15 @@ class Cell extends React.Component {
 
   handleCellClick(e) {
     if (this.props.gameOver === false) {
-      // this.setState({
-      //   isOpen: !this.state.isOpen
-      // });
-      this.props.changeStatusBoard(this.state.row, this.state.column, true)
+
+      //this.props.changeStatusBoard(this.state.row, this.state.column, true)
+      this.props.openCell(this.state.row, this.state.column)
       this.setNumColor();
       this.setBackground();
+
       if (this.state.isBomb) {
         this.props.endGame();
-        this.props.changeAll(this.openCell, this.setNumColor, this.setBackground);
-        console.log('LOST');
-      } else {
+      } else if (this.state.bombsNearby === 0){
         // open
         // increase score
       }
@@ -106,14 +102,13 @@ class Cell extends React.Component {
         className="cell"
         onClick={(e) => this.handleCellClick(e)}
         style={
-          this.state.isOpen
+          this.props.open
             ? {
                 backgroundColor: this.setBackground(),
                 color: this.setNumColor()
               }
             : { backgroundColor: 'grey', color: 'grey', opacity: '100%' }
         }
-        // style={this.setStyle()}
       >
         {this.state.isBomb ? 'X' : this.state.bombsNearby}
       </div>
@@ -122,3 +117,8 @@ class Cell extends React.Component {
 }
 
 export default Cell;
+
+
+
+
+
