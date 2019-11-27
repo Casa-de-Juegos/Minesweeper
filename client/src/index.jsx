@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import Cell from './components/Cell.jsx';
 
+import EndPrompt from './components/EndPrompt.jsx';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -13,22 +15,31 @@ class App extends React.Component {
       gameOver: false
     };
     this.checkArea = this.checkArea.bind(this);
+    this.endGame = this.endGame.bind(this);
+    this.changeAll = this.changeAll.bind(this);
   }
 
   componentDidMount() {
     this.getTable();
   }
 
+  changeAll(cb, cb2) {
+    console.log('here');
+    cb();
+    cb2();
+  }
+
   checkArea({ row, column }) {}
 
-  endGame() {
+  endGame(repeat) {
     this.setState({
       gameOver: true
     });
-    this.resetTable();
+    if (repeat) {
+      // this.getTable()
+      window.location.reload(true);
+    }
   }
-
-  resetTable() {}
 
   getTable() {
     axios
@@ -48,20 +59,29 @@ class App extends React.Component {
       <div className="table" className="container">
         <h1>Minesweeper</h1>
         <table>
-          {this.state.table.map((row) => {
-            return (
-              <tr>
-                {row.map((cell) => {
-                  return (
-                    <td>
-                      <Cell cell={cell} checkArea={this.checkArea.bind(this)} />
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          <tbody>
+            {this.state.table.map((row) => {
+              return (
+                <tr>
+                  {row.map((cell) => {
+                    return (
+                      <td>
+                        <Cell
+                          cell={cell}
+                          gameOver={this.state.gameOver}
+                          checkArea={this.checkArea.bind(this)}
+                          endGame={this.endGame}
+                          changeAll={this.changeAll}
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
+        <EndPrompt gameOver={this.state.gameOver} endGame={this.endGame} />
       </div>
     );
   }
