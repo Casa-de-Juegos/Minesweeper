@@ -13,6 +13,29 @@ class Cell extends React.Component {
       isEdge: cell.edge,
       isOpen: cell.open,
       bombsNearby: cell.bombsNearby
+    };
+  }
+
+  toggleOpen() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  toggleFlag() {
+    this.setState({ isFlag: !isFlag });
+  }
+
+  cellGraphic() {
+    //return this.state.isBomb ? 'bomb' : 'clean';
+    let graphic = '';
+
+    if (this.state.isOpen === false) {
+      graphic = '[====]';
+    } else if (this.state.isBomb === true) {
+      graphic = 'bomb';
+    } else if (this.state.isFlag === true) {
+      graphic = 'flagged';
+    } else {
+      graphic = 'safe';
     }
 
     this.openCell = this.openCell.bind(this);
@@ -40,14 +63,14 @@ class Cell extends React.Component {
   openCell() {
     this.setState({
       isOpen: true
-    })
+    });
   }
 
   setBackground() {
     if (this.state.isBomb) {
       return 'red';
     } else {
-      return 'lightgrey'
+      return 'lightgrey';
     }
   }
 
@@ -55,31 +78,41 @@ class Cell extends React.Component {
     if (this.props.gameOver === false) {
       this.setState({
         isOpen: !this.state.isOpen
-      })
+      });
       this.setNumColor();
       this.setBackground();
       if (this.state.isBomb) {
         this.props.endGame();
-        this.props.changeAll(this.openCell, this.setNumColor)
+        this.props.changeAll(this.openCell, this.setNumColor);
         console.log('LOST');
       } else {
-      // open
-      // increase score
+        // open
+        // increase score
       }
     }
   }
 
+  // this.toggleOpen();
+  // this.props.checkArea({ row: this.state.row, column: this.state.column });
+
   render() {
     return (
-      <div 
-        className="cell" 
+      <div
+        className="cell"
         onClick={(e) => this.handleCellClick(e)}
-        style={ this.state.isOpen ? { backgroundColor: this.setBackground(), color: this.setNumColor()} : {backgroundColor:'grey', color: 'grey', opacity: '100%'}}
+        style={
+          this.state.isOpen
+            ? {
+                backgroundColor: this.setBackground(),
+                color: this.setNumColor()
+              }
+            : { backgroundColor: 'grey', color: 'grey', opacity: '100%' }
+        }
         // style={this.setStyle()}
       >
-        {this.state.isBomb ? "X" : this.state.bombsNearby}
+        {this.state.isBomb ? 'X' : this.state.bombsNearby}
       </div>
-    )
+    );
   }
 }
 

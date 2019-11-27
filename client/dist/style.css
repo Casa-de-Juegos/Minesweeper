@@ -12,6 +12,7 @@ table {
 .container {
   display: grid;
   flex-direction: row;
+  padding: 10px;
   /* grid-template-columns: 40px 50px;
   grid-template-rows: 25% */
 }
@@ -21,13 +22,12 @@ table {
   text-align: center;
 }
 
-	
-.cell[data-status="hello"]:after {
-  color : orange
+.cell[data-status='hello']:after {
+  color: orange;
 }
- 
- .cell[data-status=1]:after {
-  color : blue
+
+.cell[data-status='1']:after {
+  color: blue;
 }
 
 td {
