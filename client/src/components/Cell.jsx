@@ -15,10 +15,17 @@ class Cell extends React.Component {
     }
   }
 
+  handleCellClick() {
+    if (this.state.isBomb) {
+      console.log('LOST');
+    } else {
+      console.log('Open fields')
+    }
+  }
+
   render() {
     return (
-      <div className="cell" >
-      </div>
+      <span className="cell" className="item"  onClick={(e) => this.handleCellClick(e)}>{this.state.isBomb ? "bomb" : "clean" }</span>
     )
   }
 }

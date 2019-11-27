@@ -43,10 +43,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="table">
-        {this.state.table.map((cell) => {
-          return <Cell cell={cell} />
-        })}
+      <div className="table" className="container">
+        <h1>Minesweeper</h1>
+        <table>
+        {this.state.table.map((row) => {
+          return <tr>{row.map((cell) => {
+           return <td><Cell cell={cell} /></td>
+          })
+        }</tr>})}
+        </table>
       </div>
     )
   }

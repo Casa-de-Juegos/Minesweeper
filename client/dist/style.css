@@ -1,0 +1,17 @@
+.body {
+  height: 100vh;
+}
+
+.container {
+  display: grid;
+  flex-direction: row;
+  /* grid-template-columns: 40px 50px;
+  grid-template-rows: 25% */
+}
+
+.item {
+  /* grid-column-start: 2;
+  grid-column-end: five;
+  grid-row-start: row1-start;
+  grid-row-end: 3; */
+}
