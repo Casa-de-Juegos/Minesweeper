@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Cell from './components/Cell.jsx';
-
 import EndPrompt from './components/EndPrompt.jsx';
 
 class App extends React.Component {

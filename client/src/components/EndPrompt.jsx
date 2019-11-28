@@ -8,7 +8,6 @@ const EndPrompt = ({gameOver, endGame}) => {
       <h4 className="message">{gameOver ? "Play Again?!" : ""}</h4>
       <br/>
       <button type="button" className="endButton" onClick={() => endGame(true)} >{gameOver ? "Yes" : ""}</button>
-      <button type="button" className="endButton" onClick={() => endGame(false)} >{gameOver ? "No" : ""}</button>
     </div>
   )
 }

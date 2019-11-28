@@ -17,7 +17,7 @@ Cell structure:
 */
 
 const generateBoard = (options) => {
-  const bombLevel = 0.85;
+  const bombLevel = 0.5;
   const num = 20;
   let board = [];
 
