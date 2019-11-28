@@ -68,7 +68,6 @@ class Cell extends React.Component {
   // }
 
   setBackground() {
-  
     if (this.state.isBomb) {
       return 'tomato';
     } else {
@@ -98,7 +97,7 @@ class Cell extends React.Component {
 
   render() {
     return (
-      <div
+      <div 
         className="cell"
         onClick={(e) => this.handleCellClick(e)}
         style={
@@ -110,7 +109,7 @@ class Cell extends React.Component {
             : { backgroundColor: 'grey', color: 'grey', opacity: '100%' }
         }
       >
-        {this.state.isBomb ? 'X' : this.state.bombsNearby}
+        {this.state.isBomb ? "X" : this.state.bombsNearby}
       </div>
     );
   }

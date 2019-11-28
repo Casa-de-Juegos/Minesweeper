@@ -20,6 +20,7 @@ table {
 .cell {
   border-style: groove;
   text-align: center;
+  font-weight: bold;
 }
 
 .cell[data-status='hello']:after {
@@ -46,4 +47,5 @@ td:hover {
 
 .endPrompt {
   margin: 0 auto;
+  text-align: center;
 }
